@@ -4,10 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>정보 교과 수행평가 - 알고리즘 설계하기</title>
+    
     <style>
-        * { box-sizing: border-box; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif; }
-        body { background-color: #f4f6f9; margin: 0; padding: 20px; color: #333; }
-        .container { max-width: 850px; margin: 0 auto; }
+        /* 웹 폰트 불러오기 (반드시 <style> 태그 최상단 위치) */
+        @import url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/CookieRun-Regular.woff');
+
+        /* 기존 스타일 수정 코드 */
+        * { 
+            box-sizing: border-box; 
+            font-family: 'CookieRun-Regular', sans-serif !important; 
+        }
+        body { 
+            background-color: #f4f6f9; 
+            margin: 0; 
+            padding: 20px; 
+            color: #333; 
+        }
+        .container { 
+            max-width: 850px; 
+            margin: 0 auto; 
+        }
+
+        /* 버튼 및 입력창 폰트 동기화 */
+        input, button, select, textarea {
+            font-family: 'CookieRun-Regular', sans-serif !important;
+        }
 
         /* 표지 스타일 */
         .cover-page {
@@ -146,51 +167,51 @@
             .q-card { box-shadow: none; border: 1px solid #ccc; min-height: 95vh; margin-bottom: 0; padding: 20px; page-break-before: always; break-before: page; page-break-inside: avoid; break-inside: avoid; }
             .options label { border: 1px solid #bbb; }
         }
-    /* 1페이지 버튼 컨테이너 및 디자인 */
-.action-btn-container {
-  text-align: center;
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-}
-
-.action-btn-container button {
-  padding: 12px 30px;
-  font-size: 16px;
-  font-weight: bold;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  font-family: inherit;
-}
-
-/* PDF 저장 버튼 색상 (기존 화면의 보라색) */
-.btn-primary { background-color: #7b61ff; }
-.btn-primary:hover { background-color: #5b46e0; }
-
-/* 정답 확인 버튼 색상 (눈에 띄는 붉은 계열) */
-.btn-danger { background-color: #e74c3c; }
-.btn-danger:hover { background-color: #c0392b; }
-
-/* 정답 채점 결과 텍스트 */
-#result-text {
-  font-size: 18px;
-  font-weight: 700;
-  color: #333;
-}
-
-/* 정답 확인 후 문제 제목에 표시될 정답/오답 스타일 */
-.correct { color: #2ecc71; font-weight: bold; margin-left: 8px; }
-.incorrect { color: #e74c3c; font-weight: bold; margin-left: 8px; }
-
-/* 인쇄 시(PDF 저장 시) 해당 버튼 영역이 문서에 찍히지 않도록 숨김 */
-@media print {
-  .action-btn-container { display: none !important; }
-}
+            /* 1페이지 버튼 컨테이너 및 디자인 */
+        .action-btn-container {
+          text-align: center;
+          margin-top: 20px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 15px;
+        }
+        
+        .action-btn-container button {
+          padding: 12px 30px;
+          font-size: 16px;
+          font-weight: bold;
+          color: #fff;
+          border: none;
+          border-radius: 8px;
+          cursor: pointer;
+          transition: background-color 0.2s;
+          font-family: inherit;
+        }
+        
+        /* PDF 저장 버튼 색상 (기존 화면의 보라색) */
+        .btn-primary { background-color: #7b61ff; }
+        .btn-primary:hover { background-color: #5b46e0; }
+        
+        /* 정답 확인 버튼 색상 (눈에 띄는 붉은 계열) */
+        .btn-danger { background-color: #e74c3c; }
+        .btn-danger:hover { background-color: #c0392b; }
+        
+        /* 정답 채점 결과 텍스트 */
+        #result-text {
+          font-size: 18px;
+          font-weight: 700;
+          color: #333;
+        }
+        
+        /* 정답 확인 후 문제 제목에 표시될 정답/오답 스타일 */
+        .correct { color: #2ecc71; font-weight: bold; margin-left: 8px; }
+        .incorrect { color: #e74c3c; font-weight: bold; margin-left: 8px; }
+        
+        /* 인쇄 시(PDF 저장 시) 해당 버튼 영역이 문서에 찍히지 않도록 숨김 */
+        @media print {
+          .action-btn-container { display: none !important; }
+        }
     </style>
 </head>
 <body>
