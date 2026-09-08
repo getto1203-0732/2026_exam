@@ -1,0 +1,1490 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>정보 교과 수행평가 - 알고리즘 및 순서도 25문항 전체</title>
+    <style>
+        * { box-sizing: border-box; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif; }
+        body { background-color: #f4f6f9; margin: 0; padding: 20px; color: #333; }
+        .container { max-width: 850px; margin: 0 auto; }
+
+        /* 표지 스타일 */
+        .cover-page {
+            background: #fff;
+            padding: 60px 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            text-align: center;
+            min-height: 800px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            border: 2px solid #5a4bda;
+            margin-bottom: 40px;
+            page-break-after: always;
+            break-after: page;
+        }
+        .cover-header { margin-top: 40px; }
+        .cover-header h1 { font-size: 32px; color: #333; margin-bottom: 15px; word-break: keep-all; }
+        .cover-header p { font-size: 18px; color: #5a4bda; font-weight: bold; }
+        
+        .info-box {
+            width: 100%;
+            max-width: 500px;
+            border: 2px solid #333;
+            border-radius: 8px;
+            padding: 25px 30px;
+            background: #fafbfc;
+            margin: 30px 0;
+        }
+        .info-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 15px 0;
+            padding-bottom: 8px;
+        }
+        .info-row label {
+            width: 70px;
+            text-align: right;
+            margin-right: 15px;
+        }
+        .info-row input[type="text"] {
+            border: none;
+            border-bottom: 2px solid #5a4bda;
+            background: transparent;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            width: 180px;
+            padding: 4px 8px;
+            outline: none;
+            color: #1e1b4b;
+        }
+        .info-row input[type="text"]:focus {
+            background-color: #eef2ff;
+            border-bottom-width: 3px;
+        }
+        .info-row span.unit {
+            margin-left: 10px;
+            width: 40px;
+            text-align: left;
+        }
+
+        .guide-box {
+            text-align: left;
+            background: #f0f4ff;
+            border-left: 5px solid #5a4bda;
+            padding: 15px 20px;
+            border-radius: 4px;
+            font-size: 14px;
+            line-height: 1.6;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .btn-print {
+            background: #5a4bda;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0 4px 10px rgba(90, 75, 218, 0.3);
+            transition: all 0.2s;
+        }
+        .btn-print:hover { background: #4535b7; transform: translateY(-2px); }
+
+        /* 문제 카드를 A4 1페이지 크기에 맞춤 */
+        .q-card {
+            background: #fff;
+            border: 1px solid #e1e4e8;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            page-break-before: always;
+            break-before: page;
+            page-break-inside: avoid;
+            break-inside: avoid;
+            min-height: 900px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .q-title { font-size: 18px; font-weight: bold; color: #5a4bda; margin-bottom: 12px; }
+        .q-text { font-size: 15px; font-weight: 600; margin-bottom: 15px; line-height: 1.5; }
+
+        /* 알고리즘 자연어/의사코드 박스 */
+        .algo-box { background: #eef2ff; border-left: 4px solid #5a4bda; padding: 12px 16px; margin-bottom: 15px; border-radius: 0 6px 6px 0; font-size: 14px; color: #334155; line-height: 1.6; }
+        .algo-title { font-weight: bold; color: #4338ca; margin-bottom: 6px; }
+
+        /* SVG Flowchart Container */
+        .flow-container { display: flex; justify-content: center; align-items: center; margin: 15px 0; padding: 15px; background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; }
+
+        /* 보기 선택 항목 */
+        .options { margin-top: 15px; display: grid; grid-template-columns: 1fr; gap: 8px; }
+        .options label { display: flex; align-items: center; background: #fff; padding: 10px 14px; border: 1px solid #ddd; border-radius: 5px; cursor: pointer; font-size: 14px; }
+        .options input { margin-right: 10px; }
+
+        /* Print CSS */
+        @media print {
+            @page { size: A4 portrait; margin: 12mm; }
+            body { background: white; padding: 0; }
+            .container { max-width: 100%; }
+            .btn-print { display: none; }
+            .info-row input[type="text"] { border-bottom: 1px solid #000; }
+            .info-row input[type="text"]::placeholder { color: transparent; }
+            .cover-page { box-shadow: none; min-height: 95vh; margin-bottom: 0; page-break-after: always; break-after: page; }
+            .q-card { box-shadow: none; border: 1px solid #ccc; min-height: 95vh; margin-bottom: 0; padding: 20px; page-break-before: always; break-before: page; page-break-inside: avoid; break-inside: avoid; }
+            .options label { border: 1px solid #bbb; }
+        }
+    /* 1페이지 버튼 컨테이너 및 디자인 */
+.action-btn-container {
+  text-align: center;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.action-btn-container button {
+  padding: 12px 30px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-family: inherit;
+}
+
+/* PDF 저장 버튼 색상 (기존 화면의 보라색) */
+.btn-primary { background-color: #7b61ff; }
+.btn-primary:hover { background-color: #5b46e0; }
+
+/* 정답 확인 버튼 색상 (눈에 띄는 붉은 계열) */
+.btn-danger { background-color: #e74c3c; }
+.btn-danger:hover { background-color: #c0392b; }
+
+/* 정답 채점 결과 텍스트 */
+#result-text {
+  font-size: 18px;
+  font-weight: 700;
+  color: #333;
+}
+
+/* 정답 확인 후 문제 제목에 표시될 정답/오답 스타일 */
+.correct { color: #2ecc71; font-weight: bold; margin-left: 8px; }
+.incorrect { color: #e74c3c; font-weight: bold; margin-left: 8px; }
+
+/* 인쇄 시(PDF 저장 시) 해당 버튼 영역이 문서에 찍히지 않도록 숨김 */
+@media print {
+  .action-btn-container { display: none !important; }
+}
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- 표지 -->
+    <div class="cover-page">
+        <div class="cover-header">
+            <h1>[정보] 알고리즘 및 순서도 이해 수행평가</h1>
+            <p>추상화·제어 구조 및 순서도 분석 (총 25문항)</p>
+        </div>
+
+        <div class="info-box">
+            <div class="info-row">
+                <label for="grade">학년 :</label>
+                <input type="text" id="grade" placeholder="예: 1">
+                <span class="unit"></span>
+            </div>
+            <div class="info-row">
+                <label for="classNum">반 :</label>
+                <input type="text" id="classNum" placeholder="예: 3">
+                <span class="unit"></span>
+            </div>
+            <div class="info-row">
+                <label for="studentNum">번호 :</label>
+                <input type="text" id="studentNum" placeholder="예: 15">
+                <span class="unit"></span>
+            </div>
+            <div class="info-row">
+                <label for="name">이름 :</label>
+                <input type="text" id="name" placeholder="홍길동">
+                <span class="unit"></span>
+            </div>
+        </div>
+
+        <div class="guide-box">
+            <strong>[응시 및 작성 안내]</strong><br>
+            1. 상단 인적사항(학년, 반, 번호, 이름)을 직접 작성하세요.<br>
+            2. 본 평가지는 총 25문항(객관식 4지 선다형)으로 구성되어 있습니다.<br>
+            3. 각 문제의 문제 개념, 알고리즘 설명 및 순서도를 확인하고 올바른 답을 선택하세요.<br>
+            4. 모든 입력을 마친 후 **[PDF 저장 / 시험지 인쇄하기]** 버튼을 눌러 제출용 PDF 파일로 저장하세요.
+        </div>
+
+        <div>
+            <button class="btn-print" onclick="submitExam(this)">🖨️ PDF 저장 / 결과 확인하기</button>
+        </div>
+    </div>
+
+    <!-- ==================== 추가 문제 Q1~Q10 ==================== -->
+
+    <!-- 문제 1 (추가 Q1) -->
+    <div class="q-card">
+        <div>
+            <div class="q-title">문제 1. 추상화(Abstraction)의 개념</div>
+            <div class="algo-box">
+                <div class="algo-title">📌 생각해 보기</div>
+                우리가 매일 사용하는 지하철 노선도는 실제 역의 정확한 위치나 선로의 곡선, 주변 지형을 그대로 그리지 않고 역 사이의 연결 관계와 환승 정보만을 간단하게 나타냅니다. 이처럼 문제를 해결하거나 정보를 전달할 때 사용하는 컴퓨터적 사고(Computational Thinking)의 첫 단계는 무엇일까요?
+            </div>
+            <div class="q-text">추상화(Abstraction)의 개념에 대한 설명으로 가장 올바른 것은?</div>
+        </div>
+        <div class="options">
+            <label><input type="radio" name="q1"> ① 문제의 난이도를 높이기 위해 불필요한 세부 정보를 추가하는 과정이다.</label>
+            <label><input type="radio" name="q1"> ② 문제 해결에 필요한 '핵심 요소'만 남기고 '불필요한 요소'를 제거하는 과정이다.</label>
+            <label><input type="radio" name="q1"> ③ 컴퓨터가 이해하지 못하도록 코드를 복잡하게 암호화하는 기법이다.</label>
+            <label><input type="radio" name="q1"> ④ 실제 대상의 외형을 토씨 하나 틀리지 않고 똑같이 복사하여 그려내는 작업이다.</label>
+        </div>
+    </div>
+
+    <!-- 문제 2 (추가 Q2) -->
+    <div class="q-card">
+        <div>
+            <div class="q-title">문제 2. 예산 중심의 추상화 요소 선택</div>
+            <div class="algo-box">
+                <div class="algo-title">📌 문제 상황</div>
+                친구 생일 파티를 준비하는 상황에서 예산, 장소, 음악, 초대장 디자인 등 다양한 고려 요소 중 특정 기준(관점)을 설정하여 추상화를 진행하려고 합니다.
+            </div>
+            <div class="q-text">친구 생일 파티를 준비할 때 '예산 중심(A 렌즈)'으로 추상화를 진행할 경우, 반드시 선택해야 하는 '핵심 요소'로 적절한 것은?</div>
+        </div>
+        <div class="options">
+            <label><input type="radio" name="q2"> ① 풍선 색상 및 드레스 코드</label>
+            <label><input type="radio" name="q2"> ② BGM 플레이리스트 장르</label>
+            <label><input type="radio" name="q2"> ③ 장소 대관료 및 케이크 가격</label>
+            <label><input type="radio" name="q2"> ④ 파티 초대장의 폰트 디자인</label>
+        </div>
+    </div>
+
+    <!-- 문제 3 (추가 Q3) -->
+    <div class="q-card">
+        <div>
+            <div class="q-title">문제 3. 문제 분석의 3단계</div>
+            <div class="algo-box">
+                <div class="algo-title">📌 핵심 개념</div>
+                문제 해결을 위한 분석은 일반적으로 [초기 상태] ➔ [현재 상태] ➔ [목표 상태]의 3단계 구조로 파악합니다.
+            </div>
+            <div class="q-text">문제 분석의 3단계 중 '어질러진 내 방 청소하기' 상황에서 '목표 상태'에 해당하는 것은?</div>
+        </div>
+        <div class="options">
+            <label><input type="radio" name="q3"> ① 책과 옷가지가 방바닥 전체에 어질러져 있는 출발 상태</label>
+            <label><input type="radio" name="q3"> ② 청소기를 돌리고 쓰레기 봉투에 쓰레기를 담고 있는 중간 상태</label>
+            <label><input type="radio" name="q3"> ③ 청소가 완료되어 방 안이 완전히 정돈되고 깨끗해진 상태</label>
+            <label><input type="radio" name="q3"> ④ 청소를 시작하기 전 휴식을 취하며 스마트폰을 보는 상태</label>
+        </div>
+    </div>
+
+    <!-- 문제 4 (추가 Q4) -->
+    <div class="q-card">
+        <div>
+            <div class="q-title">문제 4. 알고리즘의 5가지 조건</div>
+            <div class="algo-box">
+                <div class="algo-title">📌 핵심 개념</div>
+                올바른 알고리즘은 입력(Input), 출력(Output), 명확성(Definiteness), 유한성(Finiteness), 수행 가능성(Feasibility)의 조건들을 만족해야 합니다.
+            </div>
+            <div class="q-text">알고리즘이 갖추어야 할 5가지 조건에 대한 설명으로 올바르지 않은 것은?</div>
+        </div>
+        <div class="options">
+            <label><input type="radio" name="q4"> ① 입력(Input): 외부에서 제공되는 값이 0개 이상 존재해야 한다.</label>
+            <label><input type="radio" name="q4"> ② 출력(Output): 실행 결과로 나오는 값이 적어도 1개 이상 존재해야 한다.</label>
+            <label><input type="radio" name="q4"> ③ 명확성(Definiteness): 명령은 모호함 없이 명확해야 한다.</label>
+            <label><input type="radio" name="q4"> ④ 유한성(Finiteness): 명령이 영원히 끝나지 않고 무한히 반복 실행되어야 한다.</label>
+        </div>
+    </div>
+
+    <!-- 문제 5 (추가 Q5) -->
+    <div class="q-card">
+        <div>
+            <div class="q-title">문제 5. 조건문과 의사코드 표현</div>
+            <div class="algo-box">
+                <div class="algo-title">📌 자연어 표현</div>
+                "엄마 손이면 문을 열고, 그렇지 않으면 문을 열지 않는다."
+            </div>
+            <div class="q-text">다음은 전래동화 &lt;해와 달이 된 오누이&gt;의 상황을 의사코드로 작성한 것입니다. 빈칸 (가)와 (나)에 들어갈 키워드로 바르게 짝지어진 것은?</div>
+            <div style="background: #fafafa; border: 1px solid #ddd; padding: 15px; border-radius: 6px; font-family: monospace; font-size: 15px; margin-bottom: 15px;">
+                <b>(가)</b> 엄마 손인가?:<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;문 열기<br>
+                <b>(나)</b>:<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;문 열지 않기
+            </div>
+        </div>
+        <div class="options">
+            <label><input type="radio" name="q5"> ① (가) WHILE / (나) ELSE</label>
+            <label><input type="radio" name="q5"> ② (가) IF / (나) ELSE</label>
+            <label><input type="radio" name="q5"> ③ (가) IF / (나) WHILE</label>
+            <label><input type="radio" name="q5"> ④ (가) ELSE / (나) IF</label>
+        </div>
+    </div>
+
+    <!-- 문제 6 (추가 Q6) -->
+    <div class="q-card">
+        <div>
+            <div class="q-title">문제 6. 반복 구조와 의사코드 표현</div>
+            <div class="algo-box">
+                <div class="algo-title">📌 자연어 표현</div>
+                "비가 오는 동안 계속 우산을 쓰고 걷는다."
+            </div>
+            <div class="q-text">다음은 날씨에 따른 행동을 표현한 자연어와 의사코드입니다. 빈칸에 들어갈 알맞은 키워드는?</div>
+            <div style="background: #fafafa; border: 1px solid #ddd; padding: 15px; border-radius: 6px; font-family: monospace; font-size: 15px; margin-bottom: 15px;">
+                <b>(빈칸)</b> 비가 온다 :<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;우산을 쓰고 걷기
+            </div>
+        </div>
+        <div class="options">
+            <label><input type="radio" name="q6"> ① IF</label>
+            <label><input type="radio" name="q6"> ② ELSE</label>
+            <label><input type="radio" name="q6"> ③ WHILE</label>
+            <label><input type="radio" name="q6"> ④ PRINT</label>
+        </div>
+    </div>
+
+    <!-- 문제 7 (추가 Q7) -->
+    <div class="q-card">
+        <div>
+            <div class="q-title">문제 7. 구급차 주행 로직의 제어 구조</div>
+            <div class="algo-box">
+                <div class="algo-title">📌 자연어 표현</div>
+                (가) 목적지에 도착하지 않은 동안 사이렌을 지속적으로 울린다.<br>
+                (나) 전방에 장애물이 나타나면 차선을 변경한다.
+            </div>
+            <div class="q-text">다음은 구급차 주행 로직의 일부를 의사코드로 표현한 것입니다. 빈칸 (가)와 (나)에 들어갈 키워드로 바르게 짝지어진 것은?</div>
+            <div style="background: #fafafa; border: 1px solid #ddd; padding: 15px; border-radius: 6px; font-family: monospace; font-size: 15px; margin-bottom: 15px;">
+                <b>(가)</b> 목적지에 도착하지 않았나?:<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;사이렌 울리기<br><br>
+                <b>(나)</b> 전방 장애물 발견했나?:<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;차선 변경하기
+            </div>
+        </div>
+        <div class="options">
+            <label><input type="radio" name="q7"> ① (가) IF / (나) WHILE</label>
+            <label><input type="radio" name="q7"> ② (가) WHILE / (나) IF</label>
+            <label><input type="radio" name="q7"> ③ (가) IF / (나) ELSE</label>
+            <label><input type="radio" name="q7"> ④ (가) WHILE / (나) ELSE</label>
+        </div>
+    </div>
+
+    <!-- 문제 8 (추가 Q8) -->
+    <div class="q-card">
+        <div>
+            <div class="q-title">문제 8. 조건문 의사코드 실행 결과 추적</div>
+            <div class="algo-box">
+                <div class="algo-title">📌 의사코드</div>
+                점수 = 85<br>
+                IF 점수가 90점 이상인가?:<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;'합격' 출력<br>
+                ELSE:<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;'재시험' 출력
+            </div>
+            <div class="q-text">다음 의사코드가 실행되었을 때 출력되는 결과로 알맞은 것은?</div>
+        </div>
+        <div class="options">
+            <label><input type="radio" name="q8"> ① 합격</label>
+            <label><input type="radio" name="q8"> ② 재시험</label>
+            <label><input type="radio" name="q8"> ③ 합격, 재시험</label>
+            <label><input type="radio" name="q8"> ④ 아무것도 출력되지 않는다.</label>
+        </div>
+    </div>
+
+    <!-- 문제 9 (추가 Q9) -->
+    <div class="q-card">
+        <div>
+            <div class="q-title">문제 9. 서빙 로봇의 알고리즘 구조 판단</div>
+            <div class="algo-box">
+                <div class="algo-title">📌 알고리즘 상황</div>
+                "음식 서빙 로봇이 이동 중 배터리가 부족한지 확인하여, 배터리가 부족하면 충전소로 가고 그렇지 않으면 손님에게 음식을 전달한다."
+            </div>
+            <div class="q-text">다음 알고리즘 상황에 적용된 핵심 구조는 무엇인가?</div>
+        </div>
+        <div class="options">
+            <label><input type="radio" name="q9"> ① 순차 구조</label>
+            <label><input type="radio" name="q9"> ② 선택 구조</label>
+            <label><input type="radio" name="q9"> ③ 반복 구조</label>
+            <label><input type="radio" name="q9"> ④ 탈출 구조</label>
+        </div>
+    </div>
+
+    <!-- 문제 10 (추가 Q10) -->
+    <div class="q-card">
+        <div>
+            <div class="q-title">문제 10. 주행 상황 알고리즘 구조 매칭</div>
+            <div class="algo-box">
+                <div class="algo-title">📌 주행 상황 예시</div>
+                (가) 차들이 차선에 맞춰 계속 직진 주행한다.<br>
+                (나) 구급차가 등장하면 차선을 양보한다.<br>
+                (다) 목적지에 도착할 때까지 사이렌 소리가 계속 울린다.
+            </div>
+            <div class="q-text">도로 위 구급차 주행 상황에 적용된 알고리즘 구조의 연결이 바르게 짝지어진 것은?</div>
+        </div>
+        <div class="options">
+            <label><input type="radio" name="q10"> ① (가) 순차 구조 - (나) 선택 구조 - (다) 반복 구조</label>
+            <label><input type="radio" name="q10"> ② (가) 선택 구조 - (나) 순차 구조 - (다) 반복 구조</label>
+            <label><input type="radio" name="q10"> ③ (가) 반복 구조 - (나) 선택 구조 - (다) 순차 구조</label>
+            <label><input type="radio" name="q10"> ④ (가) 순차 구조 - (나) 반복 구조 - (다) 선택 구조</label>
+        </div>
+    </div>
+
+    <!-- ==================== 기존 문제 (기존 1~15번 -> 11~25번으로 재배치) ==================== -->
+
+    <!-- 문제 11 (기존 문제 1) -->
+    <div class="q-card">
+        <div>
+            <div class="q-title">문제 11. 라면 끓이기 (순차 구조)</div>
+            <div class="algo-box">
+                <div class="algo-title">📌 알고리즘 설명 (자연어)</div>
+                냄비에 물을 넣고 끓인다. 면과 스프를 넣은 뒤, 3분 동안 더 끓여 불을 끄고 그릇에 담는다.
+            </div>
+            <div class="q-text">다음 순서도에서 빈칸 (가)에 들어갈 순차적 처리 단계로 가장 알맞은 것은?</div>
+            <div class="flow-container">
+                <svg viewBox="0 0 500 360" style="width: 100%; max-width: 480px; height: auto;">
+                    <defs>
+                        <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#333"/>
+                        </marker>
+                    </defs>
+
+                    <ellipse cx="250" cy="25" rx="55" ry="18" fill="#ff603e"/>
+                    <text x="250" y="30" text-anchor="middle" fill="#fff" font-weight="bold" font-size="13">시작</text>
+                    <line x1="250" y1="43" x2="250" y2="65" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <rect x="150" y="65" width="200" height="34" rx="4" fill="#bbf7d0" stroke="#4ade80" stroke-width="1.5"/>
+                    <text x="250" y="86" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">냄비에 물을 넣고 끓인다</text>
+                    <line x1="250" y1="99" x2="250" y2="120" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <rect x="150" y="120" width="200" height="34" rx="4" fill="#fff9db" stroke="#f59f00" stroke-width="2" stroke-dasharray="4 4"/>
+                    <text x="250" y="141" text-anchor="middle" fill="#d9480f" font-weight="bold" font-size="13">( 가 )</text>
+                    <line x1="250" y1="154" x2="250" y2="175" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <rect x="150" y="175" width="200" height="34" rx="4" fill="#bbf7d0" stroke="#4ade80" stroke-width="1.5"/>
+                    <text x="250" y="196" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">3분 동안 더 끓인다</text>
+                    <line x1="250" y1="209" x2="250" y2="230" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <rect x="150" y="230" width="200" height="34" rx="4" fill="#bbf7d0" stroke="#4ade80" stroke-width="1.5"/>
+                    <text x="250" y="251" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">불을 끄고 그릇에 담는다</text>
+                    <line x1="250" y1="264" x2="250" y2="285" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <ellipse cx="250" cy="303" rx="55" ry="18" fill="#ff603e"/>
+                    <text x="250" y="308" text-anchor="middle" fill="#fff" font-weight="bold" font-size="13">끝</text>
+                </svg>
+            </div>
+        </div>
+        <div class="options">
+            <label><input type="radio" name="q11"> ① 면과 스프를 넣는다</label>
+            <label><input type="radio" name="q11"> ② 라면 봉지를 버린다</label>
+            <label><input type="radio" name="q11"> ③ 물을 다 버린다</label>
+            <label><input type="radio" name="q11"> ④ 계란을 껍질째 넣는다</label>
+        </div>
+    </div>
+
+    <!-- 문제 12 (기존 문제 2) -->
+    <div class="q-card">
+        <div>
+            <div class="q-title">문제 12. 섭씨온도를 화씨온도로 변환 (순차 구조)</div>
+            <div class="algo-box">
+                <div class="algo-title">📌 알고리즘 설명 (자연어)</div>
+                사용자로부터 섭씨온도(C)를 입력받고, F = C X 1.8 + 32 공식으로 화씨온도(F)를 계산하여 화면에 출력한다.
+            </div>
+            <div class="q-text">섭씨온도(C)를 입력받아 화씨온도(F)로 변환하는 순서도이다. 빈칸 (가)에 들어갈 알맞은 단계는?</div>
+            <div class="flow-container">
+                <svg viewBox="0 0 500 300" style="width: 100%; max-width: 480px; height: auto;">
+                    <defs>
+                        <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#333"/>
+                        </marker>
+                    </defs>
+
+                    <ellipse cx="250" cy="25" rx="55" ry="18" fill="#ff603e"/>
+                    <text x="250" y="30" text-anchor="middle" fill="#fff" font-weight="bold" font-size="13">시작</text>
+                    <line x1="250" y1="43" x2="250" y2="65" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <polygon points="175,65 345,65 325,99 155,99" fill="#d8b4fe" stroke="#a855f7" stroke-width="1.5"/>
+                    <text x="250" y="86" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">섭씨온도 C 입력</text>
+                    <line x1="250" y1="99" x2="250" y2="120" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <rect x="150" y="120" width="200" height="34" rx="4" fill="#bbf7d0" stroke="#4ade80" stroke-width="1.5"/>
+                    <text x="250" y="141" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">F = C X 1.8 + 32</text>
+                    <line x1="250" y1="154" x2="250" y2="175" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <polygon points="175,175 345,175 325,209 155,209" fill="#fff9db" stroke="#f59f00" stroke-width="2" stroke-dasharray="4 4"/>
+                    <text x="250" y="196" text-anchor="middle" fill="#d9480f" font-weight="bold오후 4:10 2026-09-07" font-size="13">( 가 )</text>
+                    <line x1="250" y1="209" x2="250" y2="230" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <ellipse cx="250" cy="248" rx="55" ry="18" fill="#ff603e"/>
+                    <text x="250" y="253" text-anchor="middle" fill="#fff" font-weight="bold" font-size="13">끝</text>
+                </svg>
+            </div>
+        </div>
+        <div class="options">
+            <label><input type="radio" name="q12"> ① 섭씨온도 C 입력</label>
+            <label><input type="radio" name="q12"> ② 화씨온도 F 출력</label>
+            <label><input type="radio" name="q12"> ③ 섭씨온도 C 출력</label>
+            <label><input type="radio" name="q12"> ④ 화씨온도 F 입력</label>
+        </div>
+    </div>
+
+    <!-- 문제 13 (기존 문제 3) -->
+    <div class="q-card">
+        <div>
+            <div class="q-title">문제 13. 두 수의 합과 평균 구하기 (순차 구조)</div>
+            <div class="algo-box">
+                <div class="algo-title">📌 알고리즘 설명 (자연어)</div>
+                두 개의 정수 A와 B를 입력받고, 두 수의 합과 평균을 순서대로 계산하여 화면에 출력한다.
+            </div>
+            <div class="q-text">정수 A와 B를 입력받아 합과 평균을 연산하는 순서도이다. 빈칸 (가)에 들어갈 식으로 올바른 것은?</div>
+            <div class="flow-container">
+                <svg viewBox="0 0 500 360" style="width: 100%; max-width: 480px; height: auto;">
+                    <defs>
+                        <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#333"/>
+                        </marker>
+                    </defs>
+
+                    <ellipse cx="250" cy="25" rx="55" ry="18" fill="#ff603e"/>
+                    <text x="250" y="30" text-anchor="middle" fill="#fff" font-weight="bold" font-size="13">시작</text>
+                    <line x1="250" y1="43" x2="250" y2="65" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <polygon points="175,65 345,65 325,99 155,99" fill="#d8b4fe" stroke="#a855f7" stroke-width="1.5"/>
+                    <text x="250" y="86" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">정수 A, B 입력</text>
+                    <line x1="250" y1="99" x2="250" y2="120" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <rect x="150" y="120" width="200" height="34" rx="4" fill="#bbf7d0" stroke="#4ade80" stroke-width="1.5"/>
+                    <text x="250" y="141" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">합 = A + B</text>
+                    <line x1="250" y1="154" x2="250" y2="175" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <rect x="150" y="175" width="200" height="34" rx="4" fill="#fff9db" stroke="#f59f00" stroke-width="2" stroke-dasharray="4 4"/>
+                    <text x="250" y="196" text-anchor="middle" fill="#d9480f" font-weight="bold" font-size="13">( 가 )</text>
+                    <line x1="250" y1="209" x2="250" y2="230" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <polygon points="175,230 345,230 325,264 155,264" fill="#d8b4fe" stroke="#a855f7" stroke-width="1.5"/>
+                    <text x="250" y="251" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">합, 평균 출력</text>
+                    <line x1="250" y1="264" x2="250" y2="285" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <ellipse cx="250" cy="303" rx="55" ry="18" fill="#ff603e"/>
+                    <text x="250" y="308" text-anchor="middle" fill="#fff" font-weight="bold" font-size="13">끝</text>
+                </svg>
+            </div>
+        </div>
+        <div class="options">
+            <label><input type="radio" name="q13"> ① 평균 = 합 * 2</label>
+            <label><input type="radio" name="q13"> ② 평균 = (A + B) / 2</label>
+            <label><input type="radio" name="q13"> ③ 평균 = A - B</label>
+            <label><input type="radio" name="q13"> ④ 평균 = 합 + 2</label>
+        </div>
+    </div>
+
+    <!-- 문제 14 (기존 문제 4) -->
+    <div class="q-card">
+        <div>
+            <div class="q-title">문제 14. 직사각형 둘레와 넓이 구하기 (순차 구조)</div>
+            <div class="algo-box">
+                <div class="algo-title">📌 알고리즘 설명 (자연어)</div>
+                가로 길이와 세로 길이를 입력받고, 넓이와 둘레를 계산하여 화면에 출력한다.
+            </div>
+            <div class="q-text">가로, 세로 길이를 입력받아 넓이를 구하는 빈칸 (가)에 들어갈 계산식은?</div>
+            <div class="flow-container">
+                <svg viewBox="0 0 500 360" style="width: 100%; max-width: 480px; height: auto;">
+                    <defs>
+                        <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#333"/>
+                        </marker>
+                    </defs>
+
+                    <ellipse cx="250" cy="25" rx="55" ry="18" fill="#ff603e"/>
+                    <text x="250" y="30" text-anchor="middle" fill="#fff" font-weight="bold" font-size="13">시작</text>
+                    <line x1="250" y1="43" x2="250" y2="65" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <polygon points="175,65 345,65 325,99 155,99" fill="#d8b4fe" stroke="#a855f7" stroke-width="1.5"/>
+                    <text x="250" y="86" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">가로, 세로 입력</text>
+                    <line x1="250" y1="99" x2="250" y2="120" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <rect x="150" y="120" width="200" height="34" rx="4" fill="#fff9db" stroke="#f59f00" stroke-width="2" stroke-dasharray="4 4"/>
+                    <text x="250" y="141" text-anchor="middle" fill="#d9480f" font-weight="bold" font-size="13">( 가 )</text>
+                    <line x1="250" y1="154" x2="250" y2="175" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <rect x="140" y="175" width="220" height="34" rx="4" fill="#bbf7d0" stroke="#4ade80" stroke-width="1.5"/>
+                    <text x="250" y="196" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">둘레 = 2 * (가로 + 세로)</text>
+                    <line x1="250" y1="209" x2="250" y2="230" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <polygon points="175,230 345,230 325,264 155,264" fill="#d8b4fe" stroke="#a855f7" stroke-width="1.5"/>
+                    <text x="250" y="251" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">넓이, 둘레 출력</text>
+                    <line x1="250" y1="264" x2="250" y2="285" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <ellipse cx="250" cy="303" rx="55" ry="18" fill="#ff603e"/>
+                    <text x="250" y="308" text-anchor="middle" fill="#fff" font-weight="bold" font-size="13">끝</text>
+                </svg>
+            </div>
+        </div>
+        <div class="options">
+            <label><input type="radio" name="q14"> ① 넓이 = 가로 + 세로</label>
+            <label><input type="radio" name="q14"> ② 넓이 = 가로 * 세로</label>
+            <label><input type="radio" name="q14"> ③ 넓이 = 가로 / 세로</label>
+            <label><input type="radio" name="q14"> ④ 넓이 = (가로 + 세로) / 2</label>
+        </div>
+    </div>
+
+    <!-- 문제 15 (기존 문제 5) -->
+    <div class="q-card">
+        <div>
+            <div class="q-title">문제 15. 성적 총점 계산하기 (순차 구조)</div>
+            <div class="algo-box">
+                <div class="algo-title">📌 알고리즘 설명 (자연어)</div>
+                국어, 영어, 수학 점수를 각각 입력받고, 세 과목의 점수를 모두 더해 총점을 계산한 뒤 화면에 출력한다.
+            </div>
+            <div class="q-text">국어, 영어, 수학 점수를 각각 입력받아 총점을 계산하는 빈칸 (가)의 알맞은 처리식은?</div>
+            <div class="flow-container">
+                <svg viewBox="0 0 500 300" style="width: 100%; max-width: 480px; height: auto;">
+                    <defs>
+                        <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#333"/>
+                        </marker>
+                    </defs>
+
+                    <ellipse cx="250" cy="25" rx="55" ry="18" fill="#ff603e"/>
+                    <text x="250" y="30" text-anchor="middle" fill="#fff" font-weight="bold" font-size="13">시작</text>
+                    <line x1="250" y1="43" x2="250" y2="65" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <polygon points="160,65 360,65 340,99 140,99" fill="#d8b4fe" stroke="#a855f7" stroke-width="1.5"/>
+                    <text x="250" y="86" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">국어, 영어, 수학 입력</text>
+                    <line x1="250" y1="99" x2="250" y2="120" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <rect x="150" y="120" width="200" height="34" rx="4" fill="#fff9db" stroke="#f59f00" stroke-width="2" stroke-dasharray="4 4"/>
+                    <text x="250" y="141" text-anchor="middle" fill="#d9480f" font-weight="bold" font-size="13">( 가 )</text>
+                    <line x1="250" y1="154" x2="250" y2="175" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <polygon points="175,175 345,175 325,209 155,209" fill="#d8b4fe" stroke="#a855f7" stroke-width="1.5"/>
+                    <text x="250" y="196" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">총점 출력</text>
+                    <line x1="250" y1="209" x2="250" y2="230" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <ellipse cx="250" cy="248" rx="55" ry="18" fill="#ff603e"/>
+                    <text x="250" y="253" text-anchor="middle" fill="#fff" font-weight="bold" font-size="13">끝</text>
+                </svg>
+            </div>
+        </div>
+        <div class="options">
+            <label><input type="radio" name="q15"> ① 총점 = 국어 * 영어 * 수학</label>
+            <label><input type="radio" name="q15"> ② 총점 = 국어 + 영어 + 수학</label>
+            <label><input type="radio" name="q15"> ③ 총점 = (국어 + 영어 + 수학) / 3</label>
+            <label><input type="radio" name="q15"> ④ 총점 = 국어 + 100</label>
+        </div>
+    </div>
+
+    <!-- 문제 16 (기존 문제 6) -->
+    <div class="q-card">
+        <div>
+            <div class="q-title">문제 16. 음료수 자동판매기 이용하기 (선택 구조)</div>
+            <div class="algo-box">
+                <div class="algo-title">📌 알고리즘 설명 (자연어)</div>
+                동전을 넣었을 때 금액이 음료수 가격 이상이면 음료수와 잔돈을 내보내고, 금액이 부족하면 "금액 부족" 메시지를 표시한다.
+            </div>
+            <div class="q-text">자동판매기의 동작 조건인 빈칸 (가)에 들어갈 조건문으로 적절한 것은?</div>
+            <div class="flow-container">
+                <svg viewBox="0 0 500 360" style="width: 100%; max-width: 480px; height: auto;">
+                    <defs>
+                        <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#333"/>
+                        </marker>
+                    </defs>
+
+                    <ellipse cx="250" cy="25" rx="55" ry="18" fill="#ff603e"/>
+                    <text x="250" y="30" text-anchor="middle" fill="#fff" font-weight="bold" font-size="13">시작</text>
+                    <line x1="250" y1="43" x2="250" y2="65" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <polygon points="175,65 345,65 325,99 155,99" fill="#d8b4fe" stroke="#a855f7" stroke-width="1.5"/>
+                    <text x="250" y="86" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">동전 입력</text>
+                    <line x1="250" y1="99" x2="250" y2="120" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <polygon points="250,120 335,150 250,180 165,150" fill="#fff9db" stroke="#f59f00" stroke-width="2" stroke-dasharray="4 4"/>
+                    <text x="250" y="155" text-anchor="middle" fill="#d9480f" font-weight="bold" font-size="13">( 가 )</text>
+
+                    <!-- Left branch (예) -->
+                    <path d="M 165 150 L 120 150 L 120 210" fill="none" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+                    <text x="140" y="142" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">예</text>
+                    <rect x="40" y="210" width="160" height="34" rx="4" fill="#bbf7d0" stroke="#4ade80" stroke-width="1.5"/>
+                    <text x="120" y="231" text-anchor="middle" fill="#333" font-weight="bold" font-size="11">음료수 및 잔돈 배출</text>
+
+                    <!-- Right branch (아니오) -->
+                    <path d="M 335 150 L 380 150 L 380 210" fill="none" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+                    <text x="360" y="142" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">아니오</text>
+                    <polygon points="310,210 460,210 440,244 290,244" fill="#d8b4fe" stroke="#a855f7" stroke-width="1.5"/>
+                    <text x="375" y="231" text-anchor="middle" fill="#333" font-weight="bold" font-size="11">금액 부족 출력</text>
+
+                    <!-- Merge lines -->
+                    <path d="M 120 244 L 120 280 L 250 280" fill="none" stroke="#333" stroke-width="2"/>
+                    <path d="M 375 244 L 375 280 L 250 280" fill="none" stroke="#333" stroke-width="2"/>
+                    <line x1="250" y1="280" x2="250" y2="300" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <ellipse cx="250" cy="318" rx="55" ry="18" fill="#ff603e"/>
+                    <text x="250" y="323" text-anchor="middle" fill="#fff" font-weight="bold" font-size="13">끝</text>
+                </svg>
+            </div>
+        </div>
+        <div class="options">
+            <label><input type="radio" name="q16"> ① 동전 금액이 음료수 가격 미만인가?</label>
+            <label><input type="radio" name="q16"> ② 동전 금액이 음료수 가격 이상인가?</label>
+            <label><input type="radio" name="q16"> ③ 반환 버튼이 눌렸는가?</label>
+            <label><input type="radio" name="q16"> ④ 동전이 500원짜리인가?</label>
+        </div>
+    </div>
+
+    <!-- 문제 17 (기존 문제 7) -->
+    <div class="q-card">
+        <div>
+            <div class="q-title">문제 17. 신호등 등교길 건너기 (선택 구조)</div>
+            <div class="algo-box">
+                <div class="algo-title">📌 알고리즘 설명 (자연어)</div>
+                횡단보도 앞 신호등이 초록불이면 길을 건너고, 신호등이 빨간불이면 초록불이 될 때까지 대기한다.
+            </div>
+            <div class="q-text">신호등이 초록불일 때(예) 수행해야 할 빈칸 (가)의 행동은?</div>
+            <div class="flow-container">
+                <svg viewBox="0 0 500 360" style="width: 100%; max-width: 480px; height: auto;">
+                    <defs>
+                        <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#333"/>
+                        </marker>
+                    </defs>
+
+                    <ellipse cx="250" cy="25" rx="55" ry="18" fill="#ff603e"/>
+                    <text x="250" y="30" text-anchor="middle" fill="#fff" font-weight="bold" font-size="13">시작</text>
+                    <line x1="250" y1="43" x2="250" y2="65" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <polygon points="175,65 345,65 325,99 155,99" fill="#d8b4fe" stroke="#a855f7" stroke-width="1.5"/>
+                    <text x="250" y="86" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">신호등 확인</text>
+                    <line x1="250" y1="99" x2="250" y2="120" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <polygon points="250,120 335,150 250,180 165,150" fill="#fef08a" stroke="#facc15" stroke-width="1.5"/>
+                    <text x="250" y="154" text-anchor="middle" fill="#333" font-weight="bold" font-size="11">신호등이 초록불인가?</text>
+
+                    <!-- Left branch (예) -->
+                    <path d="M 165 150 L 120 150 L 120 210" fill="none" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+                    <text x="140" y="142" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">예</text>
+                    <rect x="40" y="210" width="160" height="34" rx="4" fill="#fff9db" stroke="#f59f00" stroke-width="2" stroke-dasharray="4 4"/>
+                    <text x="120" y="231" text-anchor="middle" fill="#d9480f" font-weight="bold" font-size="13">( 가 )</text>
+
+                    <!-- Right branch (아니오) -->
+                    <path d="M 335 150 L 380 150 L 380 210" fill="none" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+                    <text x="360" y="142" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">아니오</text>
+                    <rect x="300" y="210" width="160" height="34" rx="4" fill="#bbf7d0" stroke="#4ade80" stroke-width="1.5"/>
+                    <text x="380" y="231" text-anchor="middle" fill="#333" font-weight="bold" font-size="11">초록불이 될 때까지 대기</text>
+
+                    <!-- Merge lines -->
+                    <path d="M 120 244 L 120 280 L 250 280" fill="none" stroke="#333" stroke-width="2"/>
+                    <path d="M 380 244 L 380 280 L 250 280" fill="none" stroke="#333" stroke-width="2"/>
+                    <line x1="250" y1="280" x2="250" y2="300" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <ellipse cx="250" cy="318" rx="55" ry="18" fill="#ff603e"/>
+                    <text x="250" y="323" text-anchor="middle" fill="#fff" font-weight="bold" font-size="13">끝</text>
+                </svg>
+            </div>
+        </div>
+        <div class="options">
+            <label><input type="radio" name="q17"> ① 뛰어서 되돌아간다</label>
+            <label><input type="radio" name="q17"> ② 길을 건넌다</label>
+            <label><input type="radio" name="q17"> ③ 스마트폰을 본다</label>
+            <label><input type="radio" name="q17"> ④ 제자리에 앉는다</label>
+        </div>
+    </div>
+
+    <!-- 문제 18 (기존 문제 8) -->
+    <div class="q-card">
+        <div>
+            <div class="q-title">문제 18. 도서관 책 대출 조건 확인 (선택 구조)</div>
+            <div class="algo-box">
+                <div class="algo-title">📌 알고리즘 설명 (자연어)</div>
+                사용자의 연체 기록을 조회했을 때 연체된 책이 없으면 "대출 가능"을 안내하고, 연체 기록이 있으면 "대출 불가능"을 안내한다.
+            </div>
+            <div class="q-text">연체된 책이 없을 때(예) 출력될 빈칸 (가)의 메시지는?</div>
+            <div class="flow-container">
+                <svg viewBox="0 0 500 360" style="width: 100%; max-width: 480px; height: auto;">
+                    <defs>
+                        <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#333"/>
+                        </marker>
+                    </defs>
+
+                    <ellipse cx="250" cy="25" rx="55" ry="18" fill="#ff603e"/>
+                    <text x="250" y="30" text-anchor="middle" fill="#fff" font-weight="bold" font-size="13">시작</text>
+                    <line x1="250" y1="43" x2="250" y2="65" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <polygon points="160,65 360,65 340,99 140,99" fill="#d8b4fe" stroke="#a855f7" stroke-width="1.5"/>
+                    <text x="250" y="86" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">사용자 연체 기록 조회</text>
+                    <line x1="250" y1="99" x2="250" y2="120" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <polygon points="250,120 335,150 250,180 165,150" fill="#fef08a" stroke="#facc15" stroke-width="1.5"/>
+                    <text x="250" y="154" text-anchor="middle" fill="#333" font-weight="bold" font-size="11">연체된 책이 없는가?</text>
+
+                    <!-- Left branch (예) -->
+                    <path d="M 165 150 L 120 150 L 120 210" fill="none" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+                    <text x="140" y="142" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">예</text>
+                    <polygon points="50,210 200,210 180,244 30,244" fill="#fff9db" stroke="#f59f00" stroke-width="2" stroke-dasharray="4 4"/>
+                    <text x="115" y="231" text-anchor="middle" fill="#d9480f" font-weight="bold" font-size="13">( 가 )</text>
+
+                    <!-- Right branch (아니오) -->
+                    <path d="M 335 150 L 380 150 L 380 210" fill="none" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+                    <text x="360" y="142" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">아니오</text>
+                    <polygon points="310,210 460,210 440,244 290,244" fill="#d8b4fe" stroke="#a855f7" stroke-width="1.5"/>
+                    <text x="375" y="231" text-anchor="middle" fill="#333" font-weight="bold" font-size="11">대출 불가능</text>
+
+                    <!-- Merge lines -->
+                    <path d="M 115 244 L 115 280 L 250 280" fill="none" stroke="#333" stroke-width="2"/>
+                    <path d="M 375 244 L 375 280 L 250 280" fill="none" stroke="#333" stroke-width="2"/>
+                    <line x1="250" y1="280" x2="250" y2="300" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <ellipse cx="250" cy="318" rx="55" ry="18" fill="#ff603e"/>
+                    <text x="250" y="323" text-anchor="middle" fill="#fff" font-weight="bold" font-size="13">끝</text>
+                </svg>
+            </div>
+        </div>
+        <div class="options">
+            <label><input type="radio" name="q18"> ① 대출 가능</label>
+            <label><input type="radio" name="q18"> ② 반납 완료</label>
+            <label><input type="radio" name="q18"> ③ 회원 탈퇴</label>
+            <label><input type="radio" name="q18"> ④ 연체료 납부</label>
+        </div>
+    </div>
+
+    <!-- 문제 19 (기존 문제 9) -->
+    <div class="q-card">
+        <div>
+            <div class="q-title">문제 19. 엘리베이터 정원 초과 경고 (선택 구조)</div>
+            <div class="algo-box">
+                <div class="algo-title">📌 알고리즘 설명 (자연어)</div>
+                탑승 인원의 총무게가 800kg을 초과하면 경고음을 울리고 문을 열어두며, 총무게가 800kg 이하이면 엘리베이터를 이동시킨다.
+            </div>
+            <div class="q-text">경고음이 울리는 조건인 빈칸 (가)에 들어갈 올바른 판단 조건은?</div>
+            <div class="flow-container">
+                <svg viewBox="0 0 500 360" style="width: 100%; max-width: 480px; height: auto;">
+                    <defs>
+                        <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#333"/>
+                        </marker>
+                    </defs>
+
+                    <ellipse cx="250" cy="25" rx="55" ry="18" fill="#ff603e"/>
+                    <text x="250" y="30" text-anchor="middle" fill="#fff" font-weight="bold" font-size="13">시작</text>
+                    <line x1="250" y1="43" x2="250" y2="65" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <polygon points="175,65 345,65 325,99 155,99" fill="#d8b4fe" stroke="#a855f7" stroke-width="1.5"/>
+                    <text x="250" y="86" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">총무게 측정</text>
+                    <line x1="250" y1="99" x2="250" y2="120" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <polygon points="250,120 335,150 250,180 165,150" fill="#fff9db" stroke="#f59f00" stroke-width="2" stroke-dasharray="4 4"/>
+                    <text x="250" y="155" text-anchor="middle" fill="#d9480f" font-weight="bold" font-size="13">( 가 )</text>
+
+                    <!-- Left branch (예) -->
+                    <path d="M 165 150 L 110 150 L 110 210" fill="none" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+                    <text x="135" y="142" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">예</text>
+                    <rect x="15" y="210" width="190" height="34" rx="4" fill="#bbf7d0" stroke="#4ade80" stroke-width="1.5"/>
+                    <text x="110" y="231" text-anchor="middle" fill="#333" font-weight="bold" font-size="10.5">경고음 울리기 및 문 열어두기</text>
+
+                    <!-- Right branch (아니오) -->
+                    <path d="M 335 150 L 390 150 L 390 210" fill="none" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+                    <text x="365" y="142" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">아니오</text>
+                    <rect x="310" y="210" width="160" height="34" rx="4" fill="#bbf7d0" stroke="#4ade80" stroke-width="1.5"/>
+                    <text x="390" y="231" text-anchor="middle" fill="#333" font-weight="bold" font-size="11">엘리베이터 이동하기</text>
+
+                    <!-- Merge lines -->
+                    <path d="M 110 244 L 110 280 L 250 280" fill="none" stroke="#333" stroke-width="2"/>
+                    <path d="M 390 244 L 390 280 L 250 280" fill="none" stroke="#333" stroke-width="2"/>
+                    <line x1="250" y1="280" x2="250" y2="300" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <ellipse cx="250" cy="318" rx="55" ry="18" fill="#ff603e"/>
+                    <text x="250" y="323" text-anchor="middle" fill="#fff" font-weight="bold" font-size="13">끝</text>
+                </svg>
+            </div>
+        </div>
+        <div class="options">
+            <label><input type="radio" name="q19"> ① 총무게가 800kg 이하인가?</label>
+            <label><input type="radio" name="q19"> ② 총무게가 800kg을 초과인가?</label>
+            <label><input type="radio" name="q19"> ③ 층수 버튼이 눌렸는가?</label>
+            <label><input type="radio" name="q19"> ④ 승객이 1명 이상인가?</label>
+        </div>
+    </div>
+
+    <!-- 문제 20 (기존 문제 10) -->
+    <div class="q-card">
+        <div>
+            <div class="q-title">문제 20. 체온 측정 및 출입 제어 (선택 구조)</div>
+            <div class="algo-box">
+                <div class="algo-title">📌 알고리즘 설명 (자연어)</div>
+                방문자의 체온이 37.5도 미만이면 "통과"를 출력하고, 체온이 37.5도 이상이면 "출입 제한"을 출력한다.
+            </div>
+            <div class="q-text">측정된 체온이 <b>38.0도</b>일 때, 순서도의 실행 결과로 출력되는 (가)의 값은?</div>
+            <div class="flow-container">
+                <svg viewBox="0 0 500 360" style="width: 100%; max-width: 480px; height: auto;">
+                    <defs>
+                        <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#333"/>
+                        </marker>
+                    </defs>
+
+                    <ellipse cx="250" cy="25" rx="55" ry="18" fill="#ff603e"/>
+                    <text x="250" y="30" text-anchor="middle" fill="#fff" font-weight="bold" font-size="13">시작</text>
+                    <line x1="250" y1="43" x2="250" y2="65" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <polygon points="175,65 345,65 325,99 155,99" fill="#d8b4fe" stroke="#a855f7" stroke-width="1.5"/>
+                    <text x="250" y="86" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">체온 측정</text>
+                    <line x1="250" y1="99" x2="250" y2="120" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <polygon points="250,120 335,150 250,180 165,150" fill="#fef08a" stroke="#facc15" stroke-width="1.5"/>
+                    <text x="250" y="154" text-anchor="middle" fill="#333" font-weight="bold" font-size="11">체온이 37.5도 미만인가?</text>
+
+                    <!-- Left branch (예) -->
+                    <path d="M 165 150 L 120 150 L 120 210" fill="none" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+                    <text x="140" y="142" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">예</text>
+                    <polygon points="65,210 185,210 165,244 45,244" fill="#d8b4fe" stroke="#a855f7" stroke-width="1.5"/>
+                    <text x="115" y="231" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">통과</text>
+
+                    <!-- Right branch (아니오) -->
+                    <path d="M 335 150 L 380 150 L 380 210" fill="none" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+                    <text x="360" y="142" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">아니오</text>
+                    <polygon points="310,210 460,210 440,244 290,244" fill="#fff9db" stroke="#f59f00" stroke-width="2" stroke-dasharray="4 4"/>
+                    <text x="375" y="231" text-anchor="middle" fill="#d9480f" font-weight="bold" font-size="13">( 가 )</text>
+
+                    <!-- Merge lines -->
+                    <path d="M 115 244 L 115 280 L 250 280" fill="none" stroke="#333" stroke-width="2"/>
+                    <path d="M 375 244 L 375 280 L 250 280" fill="none" stroke="#333" stroke-width="2"/>
+                    <line x1="250" y1="280" x2="250" y2="300" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <ellipse cx="250" cy="318" rx="55" ry="18" fill="#ff603e"/>
+                    <text x="250" y="323" text-anchor="middle" fill="#fff" font-weight="bold" font-size="13">끝</text>
+                </svg>
+            </div>
+        </div>
+        <div class="options">
+            <label><input type="radio" name="q20"> ① 통과</label>
+            <label><input type="radio" name="q20"> ② 출입 제한</label>
+            <label><input type="radio" name="q20"> ③ 정상 체온</label>
+            <label><input type="radio" name="q20"> ④ 재측정</label>
+        </div>
+    </div>
+
+    <!-- 문제 21 (기존 문제 11) -->
+    <div class="q-card">
+        <div>
+            <div class="q-title">문제 21. 두 수 중 큰 수 구하기 (선택 구조)</div>
+            <div class="algo-box">
+                <div class="algo-title">📌 알고리즘 설명 (자연어)</div>
+                두 수 A와 B를 입력받았을 때 A가 B보다 크면 A를 출력하고, A가 B보다 크지 않으면 B를 출력한다.
+            </div>
+            <div class="q-text">입력값으로 <b>A = 12, B = 25</b>가 입력되었을 때 최종적으로 출력되는 값은?</div>
+            <div class="flow-container">
+                <svg viewBox="0 0 500 360" style="width: 100%; max-width: 480px; height: auto;">
+                    <defs>
+                        <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#333"/>
+                        </marker>
+                    </defs>
+
+                    <ellipse cx="250" cy="25" rx="55" ry="18" fill="#ff603e"/>
+                    <text x="250" y="30" text-anchor="middle" fill="#fff" font-weight="bold" font-size="13">시작</text>
+                    <line x1="250" y1="43" x2="250" y2="65" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <polygon points="175,65 345,65 325,99 155,99" fill="#d8b4fe" stroke="#a855f7" stroke-width="1.5"/>
+                    <text x="250" y="86" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">A, B 입력</text>
+                    <line x1="250" y1="99" x2="250" y2="120" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <polygon points="250,120 335,150 250,180 165,150" fill="#fef08a" stroke="#facc15" stroke-width="1.5"/>
+                    <text x="250" y="154" text-anchor="middle" fill="#333" font-weight="bold" font-size="11">A가 B보다 큰가?</text>
+
+                    <!-- Left branch (예) -->
+                    <path d="M 165 150 L 120 150 L 120 210" fill="none" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+                    <text x="140" y="142" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">예</text>
+                    <polygon points="65,210 185,210 165,244 45,244" fill="#d8b4fe" stroke="#a855f7" stroke-width="1.5"/>
+                    <text x="115" y="231" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">A 출력</text>
+
+                    <!-- Right branch (아니오) -->
+                    <path d="M 335 150 L 380 150 L 380 210" fill="none" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+                    <text x="360" y="142" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">아니오</text>
+                    <polygon points="325,210 445,210 425,244 305,244" fill="#d8b4fe" stroke="#a855f7" stroke-width="1.5"/>
+                    <text x="375" y="231" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">B 출력</text>
+
+                    <!-- Merge lines -->
+                    <path d="M 115 244 L 115 280 L 250 280" fill="none" stroke="#333" stroke-width="2"/>
+                    <path d="M 375 244 L 375 280 L 250 280" fill="none" stroke="#333" stroke-width="2"/>
+                    <line x1="250" y1="280" x2="250" y2="300" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <ellipse cx="250" cy="318" rx="55" ry="18" fill="#ff603e"/>
+                    <text x="250" y="323" text-anchor="middle" fill="#fff" font-weight="bold" font-size="13">끝</text>
+                </svg>
+            </div>
+        </div>
+        <div class="options">
+            <label><input type="radio" name="q21"> ① 12</label>
+            <label><input type="radio" name="q21"> ② 25</label>
+            <label><input type="radio" name="q21"> ③ 37</label>
+            <label><input type="radio" name="q21"> ④ -13</label>
+        </div>
+    </div>
+
+    <!-- 문제 22 (기존 문제 12) -->
+    <div class="q-card">
+        <div>
+            <div class="q-title">문제 22. 짝수 / 홀수 판별하기 (선택 구조)</div>
+            <div class="algo-box">
+                <div class="algo-title">📌 알고리즘 설명 (자연어)</div>
+                정수 N을 2로 나눈 나머지가 0이면 "짝수"를 출력하고, 2로 나눈 나머지가 0이 아니면 "홀수"를 출력한다.
+            </div>
+            <div class="q-text">입력받은 수 N이 짝수인지 판별하는 빈칸 (가)의 조건식으로 올바른 것은?</div>
+            <div class="flow-container">
+                <svg viewBox="0 0 500 360" style="width: 100%; max-width: 480px; height: auto;">
+                    <defs>
+                        <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#333"/>
+                        </marker>
+                    </defs>
+
+                    <ellipse cx="250" cy="25" rx="55" ry="18" fill="#ff603e"/>
+                    <text x="250" y="30" text-anchor="middle" fill="#fff" font-weight="bold" font-size="13">시작</text>
+                    <line x1="250" y1="43" x2="250" y2="65" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <polygon points="175,65 345,65 325,99 155,99" fill="#d8b4fe" stroke="#a855f7" stroke-width="1.5"/>
+                    <text x="250" y="86" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">N 입력</text>
+                    <line x1="250" y1="99" x2="250" y2="120" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <polygon points="250,120 335,150 250,180 165,150" fill="#fff9db" stroke="#f59f00" stroke-width="2" stroke-dasharray="4 4"/>
+                    <text x="250" y="155" text-anchor="middle" fill="#d9480f" font-weight="bold" font-size="13">( 가 )</text>
+
+                    <!-- Left branch (예) -->
+                    <path d="M 165 150 L 120 150 L 120 210" fill="none" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+                    <text x="140" y="142" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">예</text>
+                    <polygon points="65,210 185,210 165,244 45,244" fill="#d8b4fe" stroke="#a855f7" stroke-width="1.5"/>
+                    <text x="115" y="231" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">짝수</text>
+
+                    <!-- Right branch (아니오) -->
+                    <path d="M 335 150 L 380 150 L 380 210" fill="none" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+                    <text x="360" y="142" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">아니오</text>
+                    <polygon points="325,210 445,210 425,244 305,244" fill="#d8b4fe" stroke="#a855f7" stroke-width="1.5"/>
+                    <text x="375" y="231" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">홀수</text>
+
+                    <!-- Merge lines -->
+                    <path d="M 115 244 L 115 280 L 250 280" fill="none" stroke="#333" stroke-width="2"/>
+                    <path d="M 375 244 L 375 280 L 250 280" fill="none" stroke="#333" stroke-width="2"/>
+                    <line x1="250" y1="280" x2="250" y2="300" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <ellipse cx="250" cy="318" rx="55" ry="18" fill="#ff603e"/>
+                    <text x="250" y="323" text-anchor="middle" fill="#fff" font-weight="bold" font-size="13">끝</text>
+                </svg>
+            </div>
+        </div>
+        <div class="options">
+            <label><input type="radio" name="q22"> ① N이 0보다 큰가?</label>
+            <label><input type="radio" name="q22"> ② N을 2로 나눈 나머지가 0인가?</label>
+            <label><input type="radio" name="q22"> ③ N을 2로 곱한 값이 10인가?</label>
+            <label><input type="radio" name="q22"> ④ N이 100보다 작은가?</label>
+        </div>
+    </div>
+
+    <!-- 문제 23 (기존 문제 13) -->
+    <div class="q-card">
+        <div>
+            <div class="q-title">문제 23. 시험 합격/불합격 판정 (선택 구조)</div>
+            <div class="algo-box">
+                <div class="algo-title">📌 알고리즘 설명 (자연어)</div>
+                시험 점수가 60점 이상이면 "합격"을 출력하고, 시험 점수가 60점 미만이면 "불합격"을 출력한다.
+            </div>
+            <div class="q-text">시험 점수로 <b>60점</b>이 입력되었을 때의 진행 방향과 최종 출력 결과는?</div>
+            <div class="flow-container">
+                <svg viewBox="0 0 500 360" style="width: 100%; max-width: 480px; height: auto;">
+                    <defs>
+                        <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#333"/>
+                        </marker>
+                    </defs>
+
+                    <ellipse cx="250" cy="25" rx="55" ry="18" fill="#ff603e"/>
+                    <text x="250" y="30" text-anchor="middle" fill="#fff" font-weight="bold" font-size="13">시작</text>
+                    <line x1="250" y1="43" x2="250" y2="65" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <polygon points="175,65 345,65 325,99 155,99" fill="#d8b4fe" stroke="#a855f7" stroke-width="1.5"/>
+                    <text x="250" y="86" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">시험 점수 입력</text>
+                    <line x1="250" y1="99" x2="250" y2="120" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <polygon points="250,120 335,150 250,180 165,150" fill="#fef08a" stroke="#facc15" stroke-width="1.5"/>
+                    <text x="250" y="154" text-anchor="middle" fill="#333" font-weight="bold" font-size="11">시험 점수가 60점 이상인가?</text>
+
+                    <!-- Left branch (예) -->
+                    <path d="M 165 150 L 120 150 L 120 210" fill="none" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+                    <text x="140" y="142" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">예</text>
+                    <polygon points="65,210 185,210 165,244 45,244" fill="#d8b4fe" stroke="#a855f7" stroke-width="1.5"/>
+                    <text x="115" y="231" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">합격</text>
+
+                    <!-- Right branch (아니오) -->
+                    <path d="M 335 150 L 380 150 L 380 210" fill="none" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+                    <text x="360" y="142" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">아니오</text>
+                    <polygon points="325,210 445,210 425,244 305,244" fill="#d8b4fe" stroke="#a855f7" stroke-width="1.5"/>
+                    <text x="375" y="231" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">불합격</text>
+
+                    <!-- Merge lines -->
+                    <path d="M 115 244 L 115 280 L 250 280" fill="none" stroke="#333" stroke-width="2"/>
+                    <path d="M 375 244 L 375 280 L 250 280" fill="none" stroke="#333" stroke-width="2"/>
+                    <line x1="250" y1="280" x2="250" y2="300" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <ellipse cx="250" cy="318" rx="55" ry="18" fill="#ff603e"/>
+                    <text x="250" y="323" text-anchor="middle" fill="#fff" font-weight="bold" font-size="13">끝</text>
+                </svg>
+            </div>
+        </div>
+        <div class="options">
+            <label><input type="radio" name="q23"> ① [아니오] 방향 -> 불합격</label>
+            <label><input type="radio" name="q23"> ② [예] 방향 -> 합격</label>
+            <label><input type="radio" name="q23"> ③ [예] 방향 -> 불합격</label>
+            <label><input type="radio" name="q23"> ④ [아니오] 방향 -> 합격</label>
+        </div>
+    </div>
+
+    <!-- 문제 24 (기존 문제 14) -->
+    <div class="q-card">
+        <div>
+            <div class="q-title">문제 24. 1부터 10까지 출력하기 (반복 구조)</div>
+            <div class="algo-box">
+                <div class="algo-title">📌 알고리즘 설명 (자연어)</div>
+                카운터 숫자를 1로 두고 숫자가 10 이하인 동안 해당 숫자를 출력하며, 숫자의 값을 1씩 증가시키는 과정을 반복한다.
+            </div>
+            <div class="q-text">카운터 숫자를 1씩 늘려가며 반복하기 위한 빈칸 (가)의 처리 단계는?</div>
+            <div class="flow-container">
+                <svg viewBox="0 0 500 450" style="width: 100%; max-width: 480px; height: auto;">
+                    <defs>
+                        <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#333"/>
+                        </marker>
+                    </defs>
+
+                    <ellipse cx="250" cy="30" rx="55" ry="20" fill="#ff603e"/>
+                    <text x="250" y="35" text-anchor="middle" fill="#fff" font-weight="bold" font-size="14">시작</text>
+                    <line x1="250" y1="50" x2="250" y2="75" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <polygon points="190,80 320,80 300,115 170,115" fill="#d8b4fe" stroke="#a855f7" stroke-width="1.5"/>
+                    <text x="245" y="102" text-anchor="middle" fill="#333" font-weight="bold" font-size="13">카운터 숫자</text>
+                    <line x1="245" y1="115" x2="245" y2="140" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <rect x="160" y="140" width="170" height="36" rx="4" fill="#bbf7d0" stroke="#4ade80" stroke-width="1.5"/>
+                    <text x="245" y="163" text-anchor="middle" fill="#333" font-weight="bold" font-size="13">카운터 숫자 = 1</text>
+                    <line x1="245" y1="176" x2="245" y2="200" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <polygon points="245,200 335,235 245,270 155,235" fill="#fef08a" stroke="#facc15" stroke-width="1.5"/>
+                    <text x="245" y="232" text-anchor="middle" fill="#333" font-weight="bold" font-size="11">카운터 숫자가</text>
+                    <text x="245" y="246" text-anchor="middle" fill="#333" font-weight="bold" font-size="11">10 이하인가?</text>
+
+                    <path d="M 155 235 L 100 235 L 100 290" fill="none" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+                    <text x="130" y="225" text-anchor="middle" fill="#333" font-weight="bold" font-size="13">예</text>
+
+                    <polygon points="50,295 170,295 150,330 30,330" fill="#d8b4fe" stroke="#a855f7" stroke-width="1.5"/>
+                    <text x="100" y="317" text-anchor="middle" fill="#333" font-weight="bold" font-size="13">카운터 숫자</text>
+                    <line x1="100" y1="330" x2="100" y2="355" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <rect x="20" y="355" width="160" height="36" rx="4" fill="#fff9db" stroke="#f59f00" stroke-width="2" stroke-dasharray="4 4"/>
+                    <text x="100" y="378" text-anchor="middle" fill="#d9480f" font-weight="bold" font-size="13">( 가 )</text>
+
+                    <path d="M 100 391 L 100 420 L 245 420 L 245 272" fill="none" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <path d="M 335 235 L 390 235 L 390 355" fill="none" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+                    <text x="360" y="225" text-anchor="middle" fill="#333" font-weight="bold" font-size="13">아니오</text>
+
+                    <ellipse cx="390" cy="375" rx="50" ry="20" fill="#ff603e"/>
+                    <text x="390" y="380" text-anchor="middle" fill="#fff" font-weight="bold" font-size="14">끝</text>
+                </svg>
+            </div>
+        </div>
+        <div class="options">
+            <label><input type="radio" name="q24"> ① 카운터 숫자의 값을 1 감소</label>
+            <label><input type="radio" name="q24"> ② 카운터 숫자의 값을 1 증가</label>
+            <label><input type="radio" name="q24"> ③ 카운터 숫자 = 0 으로 초기화</label>
+            <label><input type="radio" name="q24"> ④ 카운터 숫자를 입력받기</label>
+        </div>
+    </div>
+
+    <!-- 문제 25 (기존 문제 15) -->
+    <div class="q-card">
+        <div>
+            <div class="q-title">문제 25. 카운트다운 (5부터 1까지) (반복 구조)</div>
+            <div class="algo-box">
+                <div class="algo-title">📌 알고리즘 설명 (자연어)</div>
+                카운트다운 숫자 N을 5로 두고 N이 0보다 큰 동안 현재 N을 출력하며 1씩 감소시키다가, N이 0이 되면 "발사!"를 출력한다.
+            </div>
+            <div class="q-text">카운트다운이 끝난 후 [아니오] 경로로 빠져나왔을 때 출력되는 빈칸 (가)의 내용은?</div>
+            <div class="flow-container">
+                <svg viewBox="0 0 500 450" style="width: 100%; max-width: 480px; height: auto;">
+                    <defs>
+                        <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#333"/>
+                        </marker>
+                    </defs>
+
+                    <ellipse cx="250" cy="30" rx="55" ry="20" fill="#ff603e"/>
+                    <text x="250" y="35" text-anchor="middle" fill="#fff" font-weight="bold" font-size="14">시작</text>
+                    <line x1="250" y1="50" x2="250" y2="75" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <polygon points="190,80 320,80 300,115 170,115" fill="#d8b4fe" stroke="#a855f7" stroke-width="1.5"/>
+                    <text x="245" y="102" text-anchor="middle" fill="#333" font-weight="bold" font-size="13">카운터 숫자</text>
+                    <line x1="245" y1="115" x2="245" y2="140" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <rect x="160" y="140" width="170" height="36" rx="4" fill="#bbf7d0" stroke="#4ade80" stroke-width="1.5"/>
+                    <text x="245" y="163" text-anchor="middle" fill="#333" font-weight="bold" font-size="13">카운터 숫자 = 5</text>
+                    <line x1="245" y1="176" x2="245" y2="200" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <polygon points="245,200 335,235 245,270 155,235" fill="#fef08a" stroke="#facc15" stroke-width="1.5"/>
+                    <text x="245" y="232" text-anchor="middle" fill="#333" font-weight="bold" font-size="11">카운터 숫자가</text>
+                    <text x="245" y="246" text-anchor="middle" fill="#333" font-weight="bold" font-size="11">0보다 큰가?</text>
+
+                    <path d="M 155 235 L 100 235 L 100 290" fill="none" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+                    <text x="130" y="225" text-anchor="middle" fill="#333" font-weight="bold" font-size="13">예</text>
+
+                    <polygon points="50,295 170,295 150,330 30,330" fill="#d8b4fe" stroke="#a855f7" stroke-width="1.5"/>
+                    <text x="100" y="317" text-anchor="middle" fill="#333" font-weight="bold" font-size="13">카운터 숫자</text>
+                    <line x1="100" y1="330" x2="100" y2="355" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <rect x="15" y="355" width="170" height="36" rx="4" fill="#bbf7d0" stroke="#4ade80" stroke-width="1.5"/>
+                    <text x="100" y="378" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">카운터 숫자의 값을 1감소</text>
+
+                    <path d="M 100 391 L 100 420 L 245 420 L 245 272" fill="none" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <path d="M 335 235 L 380 235 L 380 295" fill="none" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+                    <text x="360" y="225" text-anchor="middle" fill="#333" font-weight="bold" font-size="13">아니오</text>
+
+                    <polygon points="330,295 450,295 430,330 310,330" fill="#fff9db" stroke="#f59f00" stroke-width="2" stroke-dasharray="4 4"/>
+                    <text x="380" y="317" text-anchor="middle" fill="#d9480f" font-weight="bold" font-size="13">( 가 )</text>
+                    <line x1="380" y1="330" x2="380" y2="355" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <ellipse cx="380" cy="375" rx="50" ry="20" fill="#ff603e"/>
+                    <text x="380" y="380" text-anchor="middle" fill="#fff" font-weight="bold" font-size="14">끝</text>
+                </svg>
+            </div>
+        </div>
+        <div class="options">
+            <label><input type="radio" name="q25"> ① 0</label>
+            <label><input type="radio" name="q25"> ② 감소!</label>
+            <label><input type="radio" name="q25"> ③ 발사!</label>
+            <label><input type="radio" name="q25"> ④ 카운터 숫자</label>
+        </div>
+    </div>
+
+    </div>
+    <script>
+        // 선생님의 구글 Apps Script 웹 앱 URL을 아래에 넣으세요
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw_7dv7J3A3NtdHGJrqRtll55v8kO1iJXvYsdURyBXgCX5o58BjU3UmzOrLa5s5zUo5Cg/exec";
+    
+        // 정답 설정 (1번~25번)
+        const answers = {
+            q1: 2, q2: 3, q3: 3, q4: 4, q5: 2,
+            q6: 3, q7: 2, q8: 2, q9: 2, q10: 1,
+            q11: 1, q12: 2, q13: 2, q14: 2, q15: 2,
+            q16: 2, q17: 2, q18: 1, q19: 2, q20: 2,
+            q21: 2, q22: 2, q23: 2, q24: 2, q25: 3
+        };
+    
+        // 새로고침 또는 재접속 시 이전 채점 상태 복원
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedExamData = localStorage.getItem('exam_submitted_result');
+            if (savedExamData) {
+                restoreExamState(JSON.parse(savedExamData));
+            }
+        });
+    
+        function submitExam(btn) {
+            if (btn.disabled) return;
+    
+            // 1. 인적사항 정보 추출
+            const inputs = document.querySelectorAll('.header-table input, .user-info input, table input');
+            let grade = "", classNum = "", studentNum = "", name = "";
+    
+            if (inputs.length >= 4) {
+                grade = inputs[0].value.trim();
+                classNum = inputs[1].value.trim();
+                studentNum = inputs[2].value.trim();
+                name = inputs[3].value.trim();
+            } else {
+                grade = document.getElementById('grade')?.value.trim() || "";
+                classNum = document.getElementById('classNum')?.value.trim() || "";
+                studentNum = document.getElementById('studentNum')?.value.trim() || "";
+                name = document.getElementById('name')?.value.trim() || "";
+            }
+    
+            // 인적사항 미입력 검증
+            if (!grade || !classNum || !studentNum || !name) {
+                alert("상단 인적사항(학년, 반, 번호, 이름)을 모두 입력해 주세요.");
+                return;
+            }
+    
+            // 2. 답안 수집 및 채점
+            const userAnswers = {};
+            let score = 0;
+            const totalQuestions = 25;
+    
+            for (let i = 1; i <= totalQuestions; i++) {
+                const qName = 'q' + i;
+                const options = document.getElementsByName(qName);
+                let selectedValue = null;
+    
+                for (let j = 0; j < options.length; j++) {
+                    if (options[j].checked) {
+                        selectedValue = j + 1;
+                        break;
+                    }
+                }
+                userAnswers[qName] = selectedValue;
+    
+                if (answers[qName] && selectedValue === answers[qName]) {
+                    score++;
+                }
+            }
+    
+            // 3. 데이터 객체 생성
+            const examData = {
+                score: score,
+                total: totalQuestions,
+                userAnswers: userAnswers,
+                grade: grade,
+                classNum: classNum,
+                studentNum: studentNum,
+                name: name
+            };
+    
+            // 4. 로컬 스토리지 저장 (새로고침 시 결과 유지)
+            localStorage.setItem('exam_submitted_result', JSON.stringify(examData));
+    
+            // 5. 구글 시트로 데이터 전송 (CORS 우회 최적화 적용)
+            if (GOOGLE_SCRIPT_URL) {
+                   // text/plain 형식을 사용하여 브라우저의 Preflight(CORS 차단) 요청 우회
+                   fetch(GOOGLE_SCRIPT_URL, {
+                   method: 'POST',
+                   headers: { 
+                       'Content-Type': 'text/plain;charset=utf-8' 
+                   },
+                   body: JSON.stringify(examData)
+               })
+               .then(res => console.log("전송 성공:", res))
+               .catch(err => console.error("구글 시트 전송 실패:", err));
+           }
+    
+            // 6. UI 반영 및 인쇄/PDF 저장 창 실행
+            applyExamUI(examData);
+    
+            setTimeout(() => {
+                window.print();
+            }, 300);
+        }
+    
+        function applyExamUI(data) {
+            const { score, total, userAnswers } = data;
+    
+            // 모든 입력 요소 비활성화
+            document.querySelectorAll('input').forEach(input => input.disabled = true);
+    
+            for (let i = 1; i <= total; i++) {
+                const qName = 'q' + i;
+                const options = document.getElementsByName(qName);
+                const selectedValue = userAnswers[qName];
+                const correctValue = answers[qName];
+                const isCorrect = (selectedValue === correctValue);
+    
+                for (let j = 0; j < options.length; j++) {
+                    const currentOptionValue = j + 1;
+                    const labelElement = options[j].parentNode;
+    
+                    if (selectedValue === currentOptionValue) {
+                        options[j].checked = true;
+                    }
+    
+                    labelElement.style.display = "block";
+                    labelElement.style.padding = "6px 10px";
+                    labelElement.style.borderRadius = "6px";
+                    labelElement.style.margin = "4px 0";
+    
+                    // 정답(초록색), 선택한 오답(빨간색) 배경 표시
+                    if (currentOptionValue === correctValue) {
+                        labelElement.style.backgroundColor = "#dcfce7";
+                        labelElement.style.border = "1px solid #86efac";
+                    } else if (currentOptionValue === selectedValue && !isCorrect) {
+                        labelElement.style.backgroundColor = "#fee2e2";
+                        labelElement.style.border = "1px solid #fca5a5";
+                    }
+                }
+    
+                // O/X 워터마크 표시
+                if (options.length > 0) {
+                    const questionCard = options[0].closest('.question') || options[0].closest('[class*="card"]') || options[0].closest('div');
+                    if (questionCard && !questionCard.querySelector('.ox-mark')) {
+                        questionCard.style.position = "relative";
+                        questionCard.style.overflow = "hidden";
+    
+                        const mark = document.createElement('div');
+                        mark.className = 'ox-mark';
+                        mark.innerText = isCorrect ? 'O' : 'X';
+                        mark.style.position = "absolute";
+                        mark.style.top = "50%";
+                        mark.style.left = "50%";
+                        mark.style.transform = "translate(-50%, -50%)";
+                        mark.style.fontSize = "180px";
+                        mark.style.fontWeight = "900";
+                        mark.style.lineHeight = "1";
+                        mark.style.color = isCorrect ? "rgba(34, 197, 94, 0.18)" : "rgba(239, 68, 68, 0.18)";
+                        mark.style.pointerEvents = "none";
+                        mark.style.userSelect = "none";
+                        mark.style.zIndex = "10";
+    
+                        questionCard.appendChild(mark);
+                    }
+                }
+            }
+    
+            // 최종 점수 전광판 생성 및 제출 버튼 상태 업데이트
+            const btn = document.querySelector('button[onclick*="submitExam"]');
+            if (btn && !document.querySelector('.score-board')) {
+                const scoreBoard = document.createElement('div');
+                scoreBoard.className = 'score-board';
+                scoreBoard.style.textAlign = "center";
+                scoreBoard.style.fontSize = "22px";
+                scoreBoard.style.fontWeight = "bold";
+                scoreBoard.style.color = "#1d4ed8";
+                scoreBoard.style.margin = "20px 0";
+                scoreBoard.style.padding = "15px";
+                scoreBoard.style.backgroundColor = "#eff6ff";
+                scoreBoard.style.border = "2px solid #93c5fd";
+                scoreBoard.style.borderRadius = "8px";
+                scoreBoard.innerText = `🏆 최종 결과 : 총 ${total}문제 중 ${score}문제 정답`;
+    
+                btn.insertAdjacentElement('beforebegin', scoreBoard);
+                btn.innerText = `✅ 채점 및 제출 완료`;
+                btn.disabled = true;
+                btn.style.backgroundColor = "#6b7280";
+                btn.style.cursor = "not-allowed";
+            }
+        }
+    
+        function restoreExamState(data) {
+            applyExamUI(data);
+        }
+    
+        // [교사 전용] Ctrl + Shift + K 누르면 제출 기록 삭제 후 초기화
+        window.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === 'K') {
+                if (confirm('[교사 권한] 제출 기록을 삭제하고 시험지를 초기화하시겠습니까?')) {
+                    localStorage.removeItem('exam_submitted_result');
+                    location.reload();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
