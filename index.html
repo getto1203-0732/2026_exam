@@ -457,40 +457,53 @@
             </div>
             <div class="q-text">다음 순서도에서 빈칸 (가)에 들어갈 순차적 처리 단계로 가장 알맞은 것은?</div>
             <div class="flow-container">
-                <svg viewBox="0 0 500 360" style="width: 100%; max-width: 480px; height: auto;">
+                <svg viewBox="0 0 500 475" style="width: 100%; max-width: 480px; height: auto; display: block; margin: 0 auto;">
                     <defs>
                         <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto">
                             <path d="M 0 0 L 10 5 L 0 10 z" fill="#333"/>
                         </marker>
                     </defs>
-
+            
+                    <!-- 1. 시작 -->
                     <ellipse cx="250" cy="25" rx="55" ry="18" fill="#ff603e"/>
                     <text x="250" y="30" text-anchor="middle" fill="#fff" font-weight="bold" font-size="13">시작</text>
                     <line x1="250" y1="43" x2="250" y2="65" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
-
-                    <rect x="150" y="65" width="200" height="34" rx="4" fill="#bbf7d0" stroke="#4ade80" stroke-width="1.5"/>
-                    <text x="250" y="86" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">냄비에 물을 넣고 끓인다</text>
-                    <line x1="250" y1="99" x2="250" y2="120" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
-
-                    <rect x="150" y="120" width="200" height="34" rx="4" fill="#fff9db" stroke="#f59f00" stroke-width="2" stroke-dasharray="4 4"/>
-                    <text x="250" y="141" text-anchor="middle" fill="#d9480f" font-weight="bold" font-size="13">( 가 )</text>
-                    <line x1="250" y1="154" x2="250" y2="175" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
-
-                    <rect x="150" y="175" width="200" height="34" rx="4" fill="#bbf7d0" stroke="#4ade80" stroke-width="1.5"/>
-                    <text x="250" y="196" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">3분 동안 더 끓인다</text>
-                    <line x1="250" y1="209" x2="250" y2="230" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
-
-                    <rect x="150" y="230" width="200" height="34" rx="4" fill="#bbf7d0" stroke="#4ade80" stroke-width="1.5"/>
-                    <text x="250" y="251" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">불을 끄고 그릇에 담는다</text>
-                    <line x1="250" y1="264" x2="250" y2="285" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
-
+            
+                    <!-- 2. 입력 (물, 면, 스프) -->
                     <polygon points="175,65 345,65 325,99 155,99" fill="#d8b4fe" stroke="#a855f7" stroke-width="1.5"/>
-                    <text x="250" y="86" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">완성된 라면</text>
+                    <text x="250" y="86" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">물, 면, 스프 입력</text>
                     <line x1="250" y1="99" x2="250" y2="120" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
-
-                    <ellipse cx="250" cy="303" rx="55" ry="18" fill="#ff603e"/>
-                    <text x="250" y="308" text-anchor="middle" fill="#fff" font-weight="bold" font-size="13">끝</text>
+            
+                    <!-- 3. 처리 (냄비에 물을 넣고 끓인다) -->
+                    <rect x="150" y="120" width="200" height="34" rx="4" fill="#bbf7d0" stroke="#4ade80" stroke-width="1.5"/>
+                    <text x="250" y="141" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">냄비에 물을 넣고 끓인다</text>
+                    <line x1="250" y1="154" x2="250" y2="175" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+            
+                    <!-- 4. ( 가 ) 빈칸 -->
+                    <rect x="150" y="175" width="200" height="34" rx="4" fill="#fff9db" stroke="#f59f00" stroke-width="2" stroke-dasharray="4 4"/>
+                    <text x="250" y="196" text-anchor="middle" fill="#d9480f" font-weight="bold" font-size="13">( 가 )</text>
+                    <line x1="250" y1="209" x2="250" y2="230" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+            
+                    <!-- 5. 처리 (3분 동안 더 끓인다) -->
+                    <rect x="150" y="230" width="200" height="34" rx="4" fill="#bbf7d0" stroke="#4ade80" stroke-width="1.5"/>
+                    <text x="250" y="251" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">3분 동안 더 끓인다</text>
+                    <line x1="250" y1="264" x2="250" y2="285" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+            
+                    <!-- 6. 처리 (불을 끄고 그릇에 담는다) -->
+                    <rect x="150" y="285" width="200" height="34" rx="4" fill="#bbf7d0" stroke="#4ade80" stroke-width="1.5"/>
+                    <text x="250" y="306" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">불을 끄고 그릇에 담는다</text>
+                    <line x1="250" y1="319" x2="250" y2="340" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+            
+                    <!-- 7. 출력 (완성된 라면) -->
+                    <polygon points="175,340 345,340 325,374 155,374" fill="#d8b4fe" stroke="#a855f7" stroke-width="1.5"/>
+                    <text x="250" y="361" text-anchor="middle" fill="#333" font-weight="bold" font-size="12">완성된 라면 출력</text>
+                    <line x1="250" y1="374" x2="250" y2="395" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+            
+                    <!-- 8. 끝 -->
+                    <ellipse cx="250" cy="413" rx="55" ry="18" fill="#ff603e"/>
+                    <text x="250" y="418" text-anchor="middle" fill="#fff" font-weight="bold" font-size="13">끝</text>
                 </svg>
+                <!-- 순서도 SVG 끝 -->
             </div>
         </div>
         <div class="options">
